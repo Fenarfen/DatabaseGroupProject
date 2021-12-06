@@ -62,7 +62,7 @@ namespace Self_Checkout_Simulator
         // the scale would detect the change and notify the self checkout
         public void WeightChangeDetected(int difference)
         {
-            weight += difference;
+            //TO DO
         }
     }
 }
