@@ -62,7 +62,7 @@ namespace Self_Checkout_Simulator
 
         private void AdminOverridesWeight(object sender, EventArgs e)
         {
-        
+
             // TO DO
 
             UpdateDisplay();
@@ -81,6 +81,8 @@ namespace Self_Checkout_Simulator
             //     - set whether buttons are enabled
             //     - set label texts
             //     - refresh the scanned products list box
+
+            lblScreen.Text = selfCheckout.GetPromptForUser();
         }
     }
 }
