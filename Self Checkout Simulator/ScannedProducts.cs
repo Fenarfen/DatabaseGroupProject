@@ -18,30 +18,46 @@ namespace Self_Checkout_Simulator
 
         public int CalculateWeight()
         {
-            // TO DO
-            return 0;
+            int totalWeight = 0;
+
+            foreach (var product in products)
+            {
+                totalWeight += product.GetWeight();
+            }
+            return totalWeight;
         }
 
         public int CalculatePrice()
         {
-            // TO DO
-            return 0;
+            int totalPrice = 0;
+
+            foreach (PackagedProduct product in products)
+            {
+                totalPrice += product.CalculatePrice();
+            }
+            return totalPrice;
         }
 
         public void Reset()
         {
-            // TO DO
+            products.Clear();
         }
 
         public void Add(Product p)
         {
-            // TO DO
+            products.Add(p);
         }
 
         public bool HasItems()
         {
-            // TO DO
-            return false;
+            if (products.Count > 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
