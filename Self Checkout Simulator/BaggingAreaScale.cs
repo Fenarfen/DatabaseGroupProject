@@ -19,10 +19,9 @@ namespace Self_Checkout_Simulator
 
         public bool IsWeightOk()
         {
-            int maxWeight = (int)(weight + (weight * 0.1));
-            int minWeight = (int)(weight - (weight * 0.1));
+            allowedDifference = expectedWeight / 10;
 
-            if (weight > minWeight && weight < maxWeight)
+            if (weight > (weight - allowedDifference) && weight < (weight + allowedDifference))
             {
                 return true;
             }
@@ -63,7 +62,7 @@ namespace Self_Checkout_Simulator
         // the scale would detect the change and notify the self checkout
         public void WeightChangeDetected(int difference)
         {
-            // TO DO
+            weight += difference;
         }
     }
 }
