@@ -9,6 +9,8 @@ namespace Self_Checkout_Simulator
         // Attributes
         private Product currentProduct;
 
+        //test comment
+
         // Constructor
         public SelfCheckout(BaggingAreaScale baggingArea, ScannedProducts scannedProducts)
         {
