@@ -7,40 +7,51 @@ namespace Self_Checkout_Simulator
     class Product
     {
         // Attributes
-
+        protected int barcode;
+        protected string name;
+        protected int weightInGrams;
 
         // Operations
-
         public string GetName()
         {
-            // TODO
-            return "TODO";
+            return name;
         }
 
         public int GetBarcode()
         {
-            // TODO
-            return 102397;
+            return barcode;
+        }
+
+        public int GetWeight()
+        {
+            return weightInGrams;
         }
 
         // TODO: Use the class diagram for details of other operations
-
+        public void SetWeight(int newWeight)
+        {
+            weightInGrams = newWeight;
+        }
     }
 
     class PackagedProduct : Product
     {
         // Attributes
-        
-            //TO DO
+        private int priceInPence;
 
         // Constructor
-        public PackagedProduct(int barcode, string name, int priceInPence, int weightInGrams)
+        public PackagedProduct(int newBarcode, string newName, int newPriceInPence, int newWeightInGrams)
         {
-           // TODO
+            barcode = newBarcode;
+            name = newName;
+            priceInPence = newPriceInPence;
+            weightInGrams = newWeightInGrams;
         }
 
         // Operations
-
-        // TO DO: Use the class diagram for details of other operations
+        public int CalculatePrice()
+        {
+            return priceInPence;
+        }
     }
 }
