@@ -12,9 +12,6 @@ namespace Self_Checkout_Simulator
         protected int weightInGrams;
 
         // Operations
-
-
-        //test2221231231
         public string GetName()
         {
             return name;
