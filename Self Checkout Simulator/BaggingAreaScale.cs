@@ -7,7 +7,9 @@ namespace Self_Checkout_Simulator
     class BaggingAreaScale
     {
         // Attributes
-       
+        private int weight;
+        private int expected;
+        private int allowedDifference;
 
         // Operations
         public int GetCurrentWeight()
