@@ -32,6 +32,11 @@ namespace Self_Checkout_Simulator
         {
             weightInGrams = newWeight;
         }
+
+        //public int CalculatePrice()
+        //{
+            //TODO??? don't see why we need another considering there's only packaged products being sold
+        //}
     }
 
     class PackagedProduct : Product
@@ -48,10 +53,10 @@ namespace Self_Checkout_Simulator
             weightInGrams = newWeightInGrams;
         }
 
-        // Operations
+        //Operations
         public int CalculatePrice()
         {
-            return priceInPence;
+           return priceInPence;
         }
     }
 }
