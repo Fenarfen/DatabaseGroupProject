@@ -8,41 +8,50 @@ namespace Self_Checkout_Simulator
     {
         // Attributes
         private int weight;
-        private int expected;
+        private int expectedWeight;
         private int allowedDifference;
 
         // Operations
         public int GetCurrentWeight()
         {
-            // TO DO
-            return 0;
+            return weight;
         }
 
         public bool IsWeightOk()
         {
-            // TO DO
-            return false;
+            int maxWeight = (int)(weight + (weight * 0.1));
+            int minWeight = (int)(weight - (weight * 0.1));
+
+            if (weight > minWeight && weight < maxWeight)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public int GetExpectedWeight()
         {
-            // TO DO
-            return 0;
+            return expectedWeight;
         }
 
         public void SetExpectedWeight(int expected)
         {
-            // TO DO
+            expectedWeight = expected;
         }
 
         public void OverrideWeight()
         {
-            // TO DO
+            weight = expectedWeight;
         }
 
         public void Reset()
         {
-            // TO DO
+            weight = 0;
+            expectedWeight = 0;
+            allowedDifference = 0;
         }
 
         public void LinkToSelfCheckout(SelfCheckout sc)
