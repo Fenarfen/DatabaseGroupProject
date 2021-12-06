@@ -14,7 +14,7 @@ namespace Self_Checkout_Simulator
         // Operations
 
 
-        //test
+        //test222
         public string GetName()
         {
             return name;
