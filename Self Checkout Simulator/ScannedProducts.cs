@@ -9,7 +9,6 @@ namespace Self_Checkout_Simulator
         // Attributes
         private List<Product> products = new List<Product>();
 
-
         // Operations
         public List<Product> GetProducts()
         {

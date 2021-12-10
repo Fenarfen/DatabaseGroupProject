@@ -11,6 +11,8 @@ namespace Self_Checkout_Simulator
         private int expectedWeight;
         private int allowedDifference;
 
+        private SelfCheckout selfCheckout;
+
         // Operations
         public int GetCurrentWeight()
         {
@@ -19,16 +21,24 @@ namespace Self_Checkout_Simulator
 
         public bool IsWeightOk()
         {
-            allowedDifference = expectedWeight / 10;
-
-            if (weight > (weight - allowedDifference) && weight < (weight + allowedDifference))
+            if(selfCheckout.GetCurrentProduct() != null)
             {
-                return true;
+                allowedDifference = selfCheckout.GetCurrentProduct().GetWeight() / 10;
             }
-            else
+            
+
+            //check if weight is too low
+            if (weight < (expectedWeight - allowedDifference))
             {
                 return false;
             }
+            //check if scales too high
+            else if (weight > (expectedWeight + allowedDifference))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public int GetExpectedWeight()
@@ -44,6 +54,7 @@ namespace Self_Checkout_Simulator
         public void OverrideWeight()
         {
             weight = expectedWeight;
+            selfCheckout.BaggingAreaWeightChanged();
         }
 
         public void Reset()
@@ -56,6 +67,7 @@ namespace Self_Checkout_Simulator
         public void LinkToSelfCheckout(SelfCheckout sc)
         {
             // TO DO
+            selfCheckout = sc;
         }
 
         // NOTE: in reality the difference wouldn't be passed in here
@@ -63,6 +75,8 @@ namespace Self_Checkout_Simulator
         public void WeightChangeDetected(int difference)
         {
             //TO DO
+            weight += difference;
+            selfCheckout.BaggingAreaWeightChanged();
         }
     }
 }

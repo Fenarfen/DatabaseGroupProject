@@ -24,17 +24,20 @@ namespace Self_Checkout_Simulator
         public void BarcodeWasScanned(int barcode)
         {
             // TO DO
-            currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
+            if (currentProduct == null)
+            {
+                currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
 
-            currentScannedProducts.Add(currentProduct);
+                currentScannedProducts.Add(currentProduct);
 
-            baggingAreaScale.SetExpectedWeight(currentScannedProducts.CalculateWeight());
+                baggingAreaScale.SetExpectedWeight(currentScannedProducts.CalculateWeight());
+            }
         }
 
         public void BaggingAreaWeightChanged()
         {
             // TO DO
-
+            currentProduct = null;
         }
 
         public void UserPaid()

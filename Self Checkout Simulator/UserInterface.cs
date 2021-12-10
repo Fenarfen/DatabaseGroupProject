@@ -45,8 +45,13 @@ namespace Self_Checkout_Simulator
             // NOTE: we use the correct item weight here
 
             // TO DO
+            if(selfCheckout.GetCurrentProduct() != null)
+            {
+                baggingAreaScale.WeightChangeDetected(selfCheckout.GetCurrentProduct().GetWeight());
+            }
 
             UpdateDisplay();
+
         }
 
         private void UserPutsProductInBaggingAreaIncorrect(object sender, EventArgs e)
@@ -57,24 +62,29 @@ namespace Self_Checkout_Simulator
             int weight = new Random().Next(20, 100);
 
             // TODO
-
-            UpdateDisplay();
+            if (selfCheckout.GetCurrentProduct() != null)
+            {
+                baggingAreaScale.WeightChangeDetected(weight);
+                UpdateDisplay();
+            }
         }
 
         private void AdminOverridesWeight(object sender, EventArgs e)
         {
-
             // TO DO
-
+            baggingAreaScale.OverrideWeight();
             UpdateDisplay();
         }
 
         private void UserChoosesToPay(object sender, EventArgs e)
         {
             // TO DO
-            selfCheckout.UserPaid();
+            if(baggingAreaScale.IsWeightOk())
+            {
+                selfCheckout.UserPaid();
 
-            UpdateDisplay();
+                UpdateDisplay();
+            }
         }
 
         void UpdateDisplay()
@@ -86,6 +96,8 @@ namespace Self_Checkout_Simulator
 
             lblBaggingAreaCurrentWeight.Text = Convert.ToString(baggingAreaScale.GetCurrentWeight());
             lblBaggingAreaExpectedWeight.Text = Convert.ToString(baggingAreaScale.GetExpectedWeight());
+
+            lblTotalPrice.Text = "£" + Convert.ToString((float)scannedProducts.CalculatePrice() / 100);
 
             lblScreen.Text = selfCheckout.GetPromptForUser();
 
