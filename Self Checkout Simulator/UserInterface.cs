@@ -35,7 +35,7 @@ namespace Self_Checkout_Simulator
         private void UserScansProduct(object sender, EventArgs e)
         {
             // TO DO - done
-            selfCheckout.BarcodeWasScanned(ProductsDAO.GetRandomProductBarcode());
+            barcodeScanner.BarcodeDetected();
 
             UpdateDisplay();
         }
