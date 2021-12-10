@@ -8,12 +8,15 @@ namespace Self_Checkout_Simulator
     {
         // Attributes
         private Product currentProduct;
+        private ScannedProducts currentScannedProducts;
+        private BarcodeScanner barcodeScanner;
+        private BaggingAreaScale baggingAreaScale;
 
         // Constructor
         public SelfCheckout(BaggingAreaScale baggingArea, ScannedProducts scannedProducts)
         {
-            // TO DO
-
+            baggingAreaScale = baggingArea;
+            currentScannedProducts = scannedProducts;
         }
 
         // Operations
@@ -32,7 +35,8 @@ namespace Self_Checkout_Simulator
 
         public void UserPaid()
         {
-            // TO DO
+            currentScannedProducts.Reset();
+            baggingAreaScale.Reset();
         }
 
         public string GetPromptForUser()

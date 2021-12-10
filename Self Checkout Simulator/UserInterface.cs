@@ -71,6 +71,7 @@ namespace Self_Checkout_Simulator
         private void UserChoosesToPay(object sender, EventArgs e)
         {
             // TO DO
+            selfCheckout.UserPaid();
 
             UpdateDisplay();
         }
