@@ -41,6 +41,7 @@ namespace Self_Checkout_Simulator
         {
             currentScannedProducts.Reset();
             baggingAreaScale.Reset();
+            currentProduct = null;
         }
 
         public string GetPromptForUser()
@@ -48,7 +49,11 @@ namespace Self_Checkout_Simulator
             // TO DO: Use the information we have to produce the correct message
             //       e.g. "Scan an item.", "Place item on scale.", etc.
 
-            if (currentProduct == null)
+            if (currentProduct == null && currentScannedProducts.HasItems() == false)
+            {
+                return "Scan an item to begin";
+            }
+            else if (currentProduct == null && baggingAreaScale.IsWeightOk())
             {
                 return "Scan an item";
             }
@@ -56,9 +61,14 @@ namespace Self_Checkout_Simulator
             {
                 return "Place item on scale";
             }
-            
-            return "ERROR: INCORRECT WEIGHT DETECTED";
-            return "ERROR: UNKNOWN STATE";
+            else if (!baggingAreaScale.IsWeightOk())
+            {
+                return "ERROR: INCORRECT WEIGHT DETECTED";
+            }
+            else
+            {
+                return "ERROR: UNKNOWN STATE";
+            }
         }
 
         public Product GetCurrentProduct()

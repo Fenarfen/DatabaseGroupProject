@@ -34,7 +34,7 @@ namespace Self_Checkout_Simulator
         // Operations
         private void UserScansProduct(object sender, EventArgs e)
         {
-            // TO DO
+            // TO DO - done
             selfCheckout.BarcodeWasScanned(ProductsDAO.GetRandomProductBarcode());
 
             UpdateDisplay();
@@ -84,7 +84,16 @@ namespace Self_Checkout_Simulator
             //     - set label texts
             //     - refresh the scanned products list box
 
+            lblBaggingAreaCurrentWeight.Text = Convert.ToString(baggingAreaScale.GetCurrentWeight());
+            lblBaggingAreaExpectedWeight.Text = Convert.ToString(baggingAreaScale.GetExpectedWeight());
+
             lblScreen.Text = selfCheckout.GetPromptForUser();
+
+            lbBasket.Items.Clear();
+            foreach (var item in scannedProducts.GetProducts())
+            {
+                lbBasket.Items.Add(item.GetName());
+            }
         }
     }
 }
