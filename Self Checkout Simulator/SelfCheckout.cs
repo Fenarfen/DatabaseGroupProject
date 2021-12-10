@@ -24,7 +24,11 @@ namespace Self_Checkout_Simulator
         public void BarcodeWasScanned(int barcode)
         {
             // TO DO
+            currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
 
+            currentScannedProducts.Add(currentProduct);
+
+            baggingAreaScale.SetExpectedWeight(currentScannedProducts.CalculateWeight());
         }
 
         public void BaggingAreaWeightChanged()
@@ -44,8 +48,15 @@ namespace Self_Checkout_Simulator
             // TO DO: Use the information we have to produce the correct message
             //       e.g. "Scan an item.", "Place item on scale.", etc.
 
-            return "Scan an item";
-            return "Place item on scale";
+            if (currentProduct == null)
+            {
+                return "Scan an item";
+            }
+            else if (currentProduct != null)
+            {
+                return "Place item on scale";
+            }
+            
             return "ERROR: INCORRECT WEIGHT DETECTED";
             return "ERROR: UNKNOWN STATE";
         }
