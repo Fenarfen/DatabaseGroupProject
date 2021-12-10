@@ -75,11 +75,6 @@ namespace Self_Checkout_Simulator
 
         void UpdateDisplay()
         {
-            // TODO: use all the information we have to update the UI:
-            //     - set whether buttons are enabled
-            //     - set label texts
-            //     - refresh the scanned products list box
-
             //if user has not scanned anything yet
             if (selfCheckout.GetCurrentProduct() == null && scannedProducts.GetProducts().Count == 0)
             {

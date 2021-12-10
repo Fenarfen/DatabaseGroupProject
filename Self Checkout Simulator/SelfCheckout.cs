@@ -40,18 +40,22 @@ namespace Self_Checkout_Simulator
 
         public string GetPromptForUser()
         {
+            //if the user has not scanned any items yet
             if (currentProduct == null && currentScannedProducts.HasItems() == false)
             {
                 return "Scan an item.";
             }
+            //if the user has scanned and placed all items
             else if (currentProduct == null && baggingAreaScale.IsWeightOk())
             {
                 return "Scan an item or pay.";
             }
+            //if the user has scanned but not placed their item
             else if (currentProduct != null)
             {
                 return "Place the item in the bagging area.";
             }
+            //if the user has scanned and placed their item incorrectly
             else if (!baggingAreaScale.IsWeightOk() && baggingAreaScale.GetCurrentWeight() > (baggingAreaScale.GetExpectedWeight() - (currentScannedProducts.GetProducts()[currentScannedProducts.GetProducts().Count - 1]).GetWeight()))
             {
                 return "Please wait, assistant is on the way";

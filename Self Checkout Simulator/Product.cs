@@ -31,7 +31,7 @@ namespace Self_Checkout_Simulator
         {
             weightInGrams = newWeight;
         }
-
+        
         public abstract int CalculatePrice();
     }
 

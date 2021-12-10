@@ -21,6 +21,7 @@ namespace Self_Checkout_Simulator
 
         public bool IsWeightOk()
         {
+            //set allowed difference to 10% of the current items weight
             if(selfCheckout.GetCurrentProduct() != null)
             {
                 allowedDifference = selfCheckout.GetCurrentProduct().GetWeight() / 10;
