@@ -27,16 +27,10 @@ namespace Self_Checkout_Simulator
             return weightInGrams;
         }
 
-        // TODO: Use the class diagram for details of other operations
         public void SetWeight(int newWeight)
         {
             weightInGrams = newWeight;
         }
-
-        //public int CalculatePrice()
-        //{
-            //TODO??? don't see why we need another considering there's only packaged products being sold
-        //}
     }
 
     class PackagedProduct : Product

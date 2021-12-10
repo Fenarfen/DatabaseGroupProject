@@ -34,7 +34,6 @@ namespace Self_Checkout_Simulator
         // Operations
         private void UserScansProduct(object sender, EventArgs e)
         {
-            // TO DO - done
             barcodeScanner.BarcodeDetected();
 
             UpdateDisplay();
@@ -44,7 +43,6 @@ namespace Self_Checkout_Simulator
         {
             // NOTE: we use the correct item weight here
 
-            // TO DO
             if(selfCheckout.GetCurrentProduct() != null)
             {
                 baggingAreaScale.WeightChangeDetected(selfCheckout.GetCurrentProduct().GetWeight());
@@ -61,7 +59,6 @@ namespace Self_Checkout_Simulator
 
             int weight = new Random().Next(20, 100);
 
-            // TODO
             if (selfCheckout.GetCurrentProduct() != null)
             {
                 baggingAreaScale.WeightChangeDetected(weight);
@@ -71,14 +68,12 @@ namespace Self_Checkout_Simulator
 
         private void AdminOverridesWeight(object sender, EventArgs e)
         {
-            // TO DO
             baggingAreaScale.OverrideWeight();
             UpdateDisplay();
         }
 
         private void UserChoosesToPay(object sender, EventArgs e)
         {
-            // TO DO
             if(baggingAreaScale.IsWeightOk())
             {
                 selfCheckout.UserPaid();

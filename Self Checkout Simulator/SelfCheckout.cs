@@ -23,7 +23,6 @@ namespace Self_Checkout_Simulator
 
         public void BarcodeWasScanned(int barcode)
         {
-            // TO DO
             if (currentProduct == null)
             {
                 currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
@@ -36,7 +35,6 @@ namespace Self_Checkout_Simulator
 
         public void BaggingAreaWeightChanged()
         {
-            // TO DO
             currentProduct = null;
         }
 
@@ -49,9 +47,6 @@ namespace Self_Checkout_Simulator
 
         public string GetPromptForUser()
         {
-            // TO DO: Use the information we have to produce the correct message
-            //       e.g. "Scan an item.", "Place item on scale.", etc.
-
             if (currentProduct == null && currentScannedProducts.HasItems() == false)
             {
                 return "Scan an item to begin";
