@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace Self_Checkout_Simulator
 {
-    class Product
+    abstract class Product
     {
         // Attributes
         protected int barcode;
@@ -31,6 +31,8 @@ namespace Self_Checkout_Simulator
         {
             weightInGrams = newWeight;
         }
+
+        public abstract int CalculatePrice();
     }
 
     class PackagedProduct : Product
@@ -48,7 +50,7 @@ namespace Self_Checkout_Simulator
         }
 
         //Operations
-        public int CalculatePrice()
+        public override int CalculatePrice()
         {
            return priceInPence;
         }

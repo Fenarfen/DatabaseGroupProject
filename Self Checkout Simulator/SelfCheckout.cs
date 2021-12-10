@@ -9,7 +9,6 @@ namespace Self_Checkout_Simulator
         // Attributes
         private Product currentProduct;
         private ScannedProducts currentScannedProducts;
-        private BarcodeScanner barcodeScanner;
         private BaggingAreaScale baggingAreaScale;
 
         // Constructor
@@ -23,14 +22,9 @@ namespace Self_Checkout_Simulator
 
         public void BarcodeWasScanned(int barcode)
         {
-            if (currentProduct == null)
-            {
-                currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
-
-                currentScannedProducts.Add(currentProduct);
-
-                baggingAreaScale.SetExpectedWeight(currentScannedProducts.CalculateWeight());
-            }
+            currentProduct = ProductsDAO.SearchUsingBarcode(barcode);
+            currentScannedProducts.Add(currentProduct);
+            baggingAreaScale.SetExpectedWeight(baggingAreaScale.GetCurrentWeight() + currentProduct.GetWeight());
         }
 
         public void BaggingAreaWeightChanged()
@@ -42,26 +36,25 @@ namespace Self_Checkout_Simulator
         {
             currentScannedProducts.Reset();
             baggingAreaScale.Reset();
-            currentProduct = null;
         }
 
         public string GetPromptForUser()
         {
             if (currentProduct == null && currentScannedProducts.HasItems() == false)
             {
-                return "Scan an item to begin";
+                return "Scan an item.";
             }
             else if (currentProduct == null && baggingAreaScale.IsWeightOk())
             {
-                return "Scan an item";
+                return "Scan an item or pay.";
             }
             else if (currentProduct != null)
             {
-                return "Place item on scale";
+                return "Place the item in the bagging area.";
             }
-            else if (!baggingAreaScale.IsWeightOk())
+            else if (!baggingAreaScale.IsWeightOk() && baggingAreaScale.GetCurrentWeight() > (baggingAreaScale.GetExpectedWeight() - (currentScannedProducts.GetProducts()[currentScannedProducts.GetProducts().Count - 1]).GetWeight()))
             {
-                return "ERROR: INCORRECT WEIGHT DETECTED";
+                return "Please wait, assistant is on the way";
             }
             else
             {

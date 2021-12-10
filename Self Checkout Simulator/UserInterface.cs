@@ -43,10 +43,7 @@ namespace Self_Checkout_Simulator
         {
             // NOTE: we use the correct item weight here
 
-            if(selfCheckout.GetCurrentProduct() != null)
-            {
-                baggingAreaScale.WeightChangeDetected(selfCheckout.GetCurrentProduct().GetWeight());
-            }
+            baggingAreaScale.WeightChangeDetected(selfCheckout.GetCurrentProduct().GetWeight());
 
             UpdateDisplay();
 
@@ -59,11 +56,8 @@ namespace Self_Checkout_Simulator
 
             int weight = new Random().Next(20, 100);
 
-            if (selfCheckout.GetCurrentProduct() != null)
-            {
-                baggingAreaScale.WeightChangeDetected(weight);
-                UpdateDisplay();
-            }
+            baggingAreaScale.WeightChangeDetected(weight);
+            UpdateDisplay();
         }
 
         private void AdminOverridesWeight(object sender, EventArgs e)
@@ -74,12 +68,9 @@ namespace Self_Checkout_Simulator
 
         private void UserChoosesToPay(object sender, EventArgs e)
         {
-            if(baggingAreaScale.IsWeightOk())
-            {
-                selfCheckout.UserPaid();
+            selfCheckout.UserPaid();
 
-                UpdateDisplay();
-            }
+            UpdateDisplay();
         }
 
         void UpdateDisplay()
@@ -89,17 +80,57 @@ namespace Self_Checkout_Simulator
             //     - set label texts
             //     - refresh the scanned products list box
 
-            lblBaggingAreaCurrentWeight.Text = Convert.ToString(baggingAreaScale.GetCurrentWeight());
-            lblBaggingAreaExpectedWeight.Text = Convert.ToString(baggingAreaScale.GetExpectedWeight());
+            //if user has not scanned anything yet
+            if (selfCheckout.GetCurrentProduct() == null && scannedProducts.GetProducts().Count == 0)
+            {
+                btnUserPutsProductInBaggingAreaCorrect.Enabled = false;
+                btnUserPutsProductInBaggingAreaIncorrect.Enabled = false;
+                btnAdminOverridesWeight.Enabled = false;
+                btnUserChooseToPay.Enabled = false;
+                btnUserScansBarcodeProduct.Enabled = true;
+            }
+            //if user has scanned but not placed
+            else if (selfCheckout.GetCurrentProduct() != null)
+            {
+                btnUserPutsProductInBaggingAreaCorrect.Enabled = true;
+                btnUserPutsProductInBaggingAreaIncorrect.Enabled = true;
+                btnAdminOverridesWeight.Enabled = false;
+                btnUserChooseToPay.Enabled = false;
+                btnUserScansBarcodeProduct.Enabled = false;
+            }
+            //if the user has placed their item correctly
+            else if (selfCheckout.GetCurrentProduct() == null && baggingAreaScale.IsWeightOk())
+            {
+                btnUserPutsProductInBaggingAreaCorrect.Enabled = false;
+                btnUserPutsProductInBaggingAreaIncorrect.Enabled = false;
+                btnAdminOverridesWeight.Enabled = false;
+                btnUserChooseToPay.Enabled = true;
+                btnUserScansBarcodeProduct.Enabled = true;
+            }
+            //if the user has placed their item incorrectly
+            else if (!baggingAreaScale.IsWeightOk() && baggingAreaScale.GetCurrentWeight() > (baggingAreaScale.GetExpectedWeight() - (scannedProducts.GetProducts()[scannedProducts.GetProducts().Count - 1]).GetWeight()))
+            {
+                btnUserPutsProductInBaggingAreaCorrect.Enabled = false;
+                btnUserPutsProductInBaggingAreaIncorrect.Enabled = false;
+                btnAdminOverridesWeight.Enabled = true;
+                btnUserChooseToPay.Enabled = false;
+                btnUserScansBarcodeProduct.Enabled = false;
+            }
 
-            lblTotalPrice.Text = "£" + Convert.ToString((float)scannedProducts.CalculatePrice() / 100);
+            //system labels labels
+            lblBaggingAreaCurrentWeight.Text = baggingAreaScale.GetCurrentWeight().ToString("N0");
+            lblBaggingAreaExpectedWeight.Text = baggingAreaScale.GetExpectedWeight().ToString("N0");
+            lblTotalPrice.Text = "£" + ((float)scannedProducts.CalculatePrice() / 100f).ToString();
 
+            //set customer facing screen
             lblScreen.Text = selfCheckout.GetPromptForUser();
 
+            //set scanned items listbox contents
             lbBasket.Items.Clear();
-            foreach (var item in scannedProducts.GetProducts())
+            foreach (var product in scannedProducts.GetProducts())
             {
-                lbBasket.Items.Add(item.GetName());
+                string price = (product.CalculatePrice() / 100f).ToString();
+                lbBasket.Items.Add("£" + price + " " + product.GetName());
             }
         }
     }

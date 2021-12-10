@@ -25,7 +25,6 @@ namespace Self_Checkout_Simulator
             {
                 allowedDifference = selfCheckout.GetCurrentProduct().GetWeight() / 10;
             }
-            
 
             //check if weight is too low
             if (weight < (expectedWeight - allowedDifference))
@@ -53,7 +52,7 @@ namespace Self_Checkout_Simulator
 
         public void OverrideWeight()
         {
-            weight = expectedWeight;
+            expectedWeight = weight;
             selfCheckout.BaggingAreaWeightChanged();
         }
 
